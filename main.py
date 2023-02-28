@@ -27,4 +27,4 @@ async def on_message(message):
         embed.set_footer(text='Homebrew France', icon_url='https://caca.com/caca.png')
         await message.channel.send(embed=embed)
 
-client.run('MTA4MDIxMDQ3Mzk4MDU0Mjk4Ng.G3dB3Y.TkiLNBjYJJKDHH0xsh4TnzK7Oz4_5htxvJ539c')
+client.run('')
