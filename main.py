@@ -7,10 +7,19 @@ bot = commands.Bot(command_prefix='.', intents=intents)
 
 @bot.event
 async def on_ready():
+    activity = discord.Game(name="HBF Helper | Le Homebrew France", type=3)
+    await bot.change_presence(status=discord.Status.online, activity=activity)
     print(f'Connected as {bot.user.name}')
     channel = bot.get_channel(883797017892106250)
     await channel.send("``🟢 EN LIGNE``")
     await channel.send("``🟢 CONNECTE EN TANT QUE HOMEBREW FRANCE HELPER SUR Le Homebrew France)``")
+
+@bot.event
+async def on_command(ctx):
+    command = ctx.command
+    author = ctx.author
+    channel = ctx.channel
+    print(f"Commande '{command.name}' appelée par {author} dans le canal '{channel}'")
 
 @bot.command(name='sdroot')
 async def yagpdb_command(ctx):
@@ -167,12 +176,48 @@ async def uninstall_command(ctx, attribute: str):
         await ctx.send("Commande non-reconnue. Usage: `.uninstall luma | twl | unlaunch`")
 
 @bot.command()
-@commands.has_role("Your Desired Role")
-async def stop(ctx):
+async def list_servers(ctx):
+    server_info = []
+    for server in bot.guilds:
+        owner = server.owner
+        server_info.append(f"Server: {server.name} (ID: {server.id}), Owner: {owner.name} (ID: {owner.id})")
+
+    await ctx.send(f"**Servers and Owners:**\n\n" + "\n".join(server_info))
+
+@bot.command()
+async def send_message(ctx, server_id: int, *, message_content: str):
+    server = bot.get_guild(server_id)
+    if server:
+        await server.text_channels[0].send(message_content)
+        await ctx.send(f"Message sent to {server.name}!")
+    else:
+        await ctx.send("Server not found!")
+
+
+@bot.command()
+async def infos_serveur(ctx):
+    serveur = ctx.guild
+    nom_serveur = serveur.name
+    description_serveur = serveur.description if serveur.description else "Aucune description"
+    nombre_membres_serveur = serveur.member_count
+    proprietaire_serveur = serveur.owner
+    date_creation_serveur = serveur.created_at.strftime("%d/%m/%Y %H:%M:%S") if serveur.created_at else "Date de création inconnue"
+    
+    embed = discord.Embed(title="Informations du serveur", color=discord.Color.blue())
+    embed.add_field(name="Nom", value=nom_serveur, inline=False)
+    embed.add_field(name="Description", value=description_serveur, inline=False)
+    embed.add_field(name="Nombre de membres", value=nombre_membres_serveur, inline=False)
+    embed.add_field(name="Propriétaire", value=proprietaire_serveur, inline=False)
+    embed.add_field(name="Date de création", value=date_creation_serveur, inline=False)
+    
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def stop_bot(ctx):
     await ctx.send("``🔴 ARRÊT...``")
     await ctx.send("``🔴 DECONNEXION DE Le Homebrew France...``")
     await bot.close()
 
 print("Bot is now running...")  # Print bot is running in the console
 
-bot.run('token')
+bot.run('')
