@@ -1,118 +1,178 @@
-
-
 import discord
-import requests
-from datetime import datetime
 from discord.ext import commands
 
 intents = discord.Intents.all()
-intents.members = True
-intents.message_content = True
 
-bot = commands.Bot(command_prefix='!', intents=intents)
-client = discord.Client(intents=intents)
-
-TOKEN = "{BOT_TOKEN}"
-CHANNEL_ID = "892813233059151902"
+bot = commands.Bot(command_prefix='.', intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f'Connecté en tant que {bot.user}')
-    current_time = datetime.now().strftime("%H:%M:%S")
-    current_date = datetime.now().strftime("%m/%d/%Y")
-    channel = bot.get_channel(int(CHANNEL_ID))
-    await channel.send(f"`Statut : Connecté à {current_time} le {current_date} en tant que {bot.user}`")
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Le Homebrew France", details=f"{len(bot.guilds[0].members)} membres", state="https://homebrewfrance.fr/discord"))
+    print(f'Connected as {bot.user.name}')
+    channel = bot.get_channel(883797017892106250)
+    await channel.send("``🟢 EN LIGNE``")
+    await channel.send("``🟢 CONNECTE EN TANT QUE HOMEBREW FRANCE HELPER SUR Le Homebrew France)``")
 
-@bot.command(name='guide')
-async def guide(ctx, console):
-    if console.lower() == 'dsi':
-        embed = discord.Embed(title='Guide DSi', url='https://dsi.cfw.guide/fr-FR', description='Un guide complet pour modder votre Nintendo DSI.', color=discord.Color.blue())
-        embed.set_author(name='DS-Homebrew', icon_url='https://avatars.githubusercontent.com/u/46971470?s=200&v=4')
-        embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-        embed.set_thumbnail(url='https://upload.wikimedia.org/wikipedia/commons/8/89/Nintendo-DSi-Bl-Open.png')
-        await ctx.send(embed=embed)
-    elif console.lower() == '3ds':
-        embed = discord.Embed(title='Guide 3DS', url='https://3ds.hacks.guide/fr_FR/', description='Un guide complet pour le custom firmware de la 3DS, depuis le firmware original vers boot9strap.', color=discord.Color.red())
-        embed.set_author(name='Nintendo-Homebrew & Plailect', icon_url='https://avatars.githubusercontent.com/u/38025742?s=280&v=4')
-        embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-        embed.set_thumbnail(url='https://lh3.googleusercontent.com/proxy/1P6EQL4b2uEuOudqcTOVXIuddSSk552dDipN7D2A05i9hP3yXsM1Oq6-WRevnj67DBmhw4igm32yIghqrlcRshIQdA9wPEwvz5W7qTRjtVgpAqLRwrmcDblABTobbvwzd7IikURe18ck1mKg')
-        await ctx.send(embed=embed)
-    elif console.lower() == 'psvita':
-        embed = discord.Embed(title='Guide PSVita', url='https://vita.hacks.guide/', description='Un guide complet pour le custom firmware PS Vita (TV), depuis le firmware original vers Henkaku.', color=discord.Color.blue())
-        embed.set_author(name='emiyl & Plailect', icon_url='https://github.com/emiyl.png')
-        embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-        embed.set_thumbnail(url='https://enso.henkaku.xyz/enso.png')
-        await ctx.send(embed=embed)
-    elif console.lower() == 'switch':
-        embed = discord.Embed(title='Guide Nintendo Switch', url='https://jeffvi.github.io/Switch-guide-FR/', description='Un guide complet pour le custom firmware de la , depuis le firmware original vers Atmosphère.', color=discord.Color.blue())
-        embed.set_author(name='JeffVI et Nintendo-Homebrew', icon_url='https://avatars.githubusercontent.com/u/38025742?s=280&v=4')
-        embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-        embed.set_thumbnail(url='https://lh3.googleusercontent.com/proxy/rFesUV6hBrxycXemK2Fs99lNXfFbbztnn0v42yZ51gP8sFK5qvKkxEP2lQFIQIxu0ueBVN_8x2RPxgwCYrS3oGA6_98qtENyP4HVxo4H0h4SaBOKq-l0xmctrXRdcNtThjc6u9EDzNg2WG9aGf38XMpzbWu-IWw')
-        await ctx.send(embed=embed)
-    elif console.lower() == 'wiiu':
-        embed = discord.Embed(title='Guide Wii U', url='https://wiiu.hacks.guide/#/fr_FR/', description='Un guide complet pour le custom firmware de la Wii U, depuis le firmware original vers Tiramisu.', color=discord.Color.blue())
-        embed.set_author(name='Nintendo-Homebrew', icon_url='https://avatars.githubusercontent.com/u/38025742?s=280&v=4')
-        embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-        embed.set_thumbnail(url='https://lh3.googleusercontent.com/proxy/DEsQosxV9ZMUn1aYjHC93wxMrAhM3Q-EFeOlhHY_r6LZCW16XyWwrcD0j2xTXdx360F0ts91_zU1RZ70aLcqd-VInGimc0SCrr9iJHIyANc7I0ymikR2OgXsnU5VnGiI4hyYqqiSlV4ZiIWSWJoIer0Jotafvnmx0g')
-        await ctx.send(embed=embed)
-    elif console.lower() == 'wii':
-        embed = discord.Embed(title='Guide Wii', url='https://wii.guide/fr-FR', description='Un guide complet pour le custom firmware de la Wii, depuis le firmware original vers un CFW.', color=discord.Color.blue())
-        embed.set_author(name='RiiConnect24', icon_url='https://rc24.xyz/images/logo_small.png')
-        embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-        await ctx.send(embed=embed)
-    else:
-        await ctx.send('Commande invalide. Les consoles disponibles sont : ``dsi | 3ds | psvita | switch | wii | wiiu``')
+@bot.command(name='sdroot')
+async def yagpdb_command(ctx):
+    embed = discord.Embed(title="La racine d'une Carte SD :", color=discord.Color.blue())
+    embed.set_image(url="https://media.discordapp.net/attachments/882625509824004199/917855780533833828/le_root.png")
+    embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+    
+    await ctx.send(embed=embed)
+
+@bot.command(name='sdlock')
+async def yagpdb_command(ctx):
+    embed = discord.Embed(title="Problème de lecture de Carte SD :", description="Retirer la protection en écriture comme indiqué", color=discord.Color.blue())
+    embed.set_image(url="https://media.discordapp.net/attachments/882625509824004199/917864574429048912/IMG_20211207_204516.png")
+    embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+    
+    await ctx.send(embed=embed)
 
 @bot.command(name='config')
-async def config(ctx, cfw):
-    if cfw.lower() == 'luma':
-        embed = discord.Embed(title='Configuration de Luma', description='Sélectionnez les options encadrées.', color=discord.Color.blue())
-        embed.set_image(url='https://media.discordapp.net/attachments/962030917495447613/1080578272406032435/IMG_20230224_101417.png')
-        embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-        await ctx.send(embed=embed)
+async def config_command(ctx, option: str):
+    if option.lower() == 'luma':
+        embed = discord.Embed(title="Aide à la configuration de Luma :", description="Sélectionner les options encadrées", color=discord.Color.blue())
+        embed.set_image(url="https://media.discordapp.net/attachments/962030917495447613/1080578272406032435/IMG_20230224_101417.png")
+        embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
         
-@bot.command(name='sdroot')
-async def sdroot(ctx):
-    embed = discord.Embed(title='La racine d`une carte SD :', color=discord.Color.blue())
-    embed.set_image(url='https://media.discordapp.net/attachments/882625509824004199/917855780533833828/le_root.png')
-    embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-    await ctx.send(embed=embed)
+        await ctx.send(embed=embed)
+    else:
+        await ctx.send("Commande non-reconnue. Usage: `.config luma`")
+
+@bot.command(name='non-brick')
+async def yagpdb_command(ctx):
+    embed = discord.Embed(title="Ma console est-elle brickée ?", description="Si la LED bleue de votre 3DS s'allume puis s'éteint instantanément, non votre console n'est pas brickée. Il s'agit simplement d'un fichier manquant sur votre Carte SD : le `boot.firm`, il est disponible en téléchargement ici, placez le à la racine de votre Carte SD : [Téléchargement du boot.firm](https://github.com/Nanquitas/Luma3DS/releases/download/latest/boot.firm)", color=discord.Color.blue())
+    embed.set_thumbnail(url="https://media.discordapp.net/attachments/959465064556036220/962404229983662100/IMG_20220409_193009.png")
+    embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
     
-@bot.command(name='sdlock')
-async def sdlock(ctx):
-    embed = discord.Embed(title='Problème de lecture de Carte SD :', description='Retirez la protection en écriture comme indiqué.', color=discord.Color.blue())
-    embed.set_image(url='https://media.discordapp.net/attachments/882625509824004199/917864574429048912/IMG_20211207_204516.png')
-    embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-    await ctx.send(embed=embed)
-   
-@bot.command(name='isbricked')
-async def isbricked(ctx):
-    embed = discord.Embed(title='Ma console est-elle brickée ?', description='Si la LED bleue de votre 3DS sʾallume puis sʾéteint instantanément, non votre console nʾest pas brickée. Il sʾagit simplement dʾun fichier manquant sur votre Carte SD : le `boot.firm`. Placez-le à la racine de votre Carte SD.', color=discord.Color.blue())
-    embed.add_field(name="Lien de téléchargement :", value="https://github.com/Nanquitas/Luma3DS/releases/latest/download/boot.firm", inline=False)
-    embed.set_thumbnail(url='https://media.discordapp.net/attachments/959465064556036220/962404229983662100/IMG_20220409_193009.png')
-    embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
-    await ctx.send(embed=embed)
-    
-@bot.command(name='vguides')
-async def vguides(ctx):
-    embed=discord.Embed(title='Avertissement concernant les tutoriels vidéos sur YouTube', description='Il est déconseillé de suivre des guides vidéos provenant de YouTube ou toute autre plateforme, ces guides sont bien souvent peu mis à jour et les créateurs ont tendance à faire des packs contenant tous les fichiers quʾils hébergent eux-mêmes, rendant impossible la mise à jour de ces fichiers. Vigilance particulière aux tutoriels de MikeGamers étant particulièrement désinformateurs et rempli de fautes en tous genres pouvant parfois aller jusquʾà endommager la console ou certains fichiers. Il est donc déconseillé de suivre ses tutoriels et de manière plus générale les tutoriels vidéos. Ne croyez que les guide `hacks.guide` rédigés par les développeurs eux-mêmes et régulièrement mis à jour.')
-    embed.set_footer(text='Le Homebrew France', icon_url='https://cdn.discordapp.com/icons/883623179979984896/a_52794001e75f82c85b15b01ca971a72b?size=64')
     await ctx.send(embed=embed)
 
-@bot.command(name='say')
-async def say(ctx, *, arg):
-    await ctx.send(arg)
+@bot.command(name='widescreen')
+async def yagpdb_command(ctx):
+    embed = discord.Embed(title="Mode plein écran (TWiLightMenu++)", url="https://wiki.ds-homebrew.com/fr-FR/twilightmenu/playing-in-widescreen", description="Utilisation du mode plein d'écran sur le TWiLightMenu++", color=discord.Color.blue())
+    embed.set_author(name="DS-Homebrew Wiki")
+    embed.set_thumbnail(url="https://avatars.githubusercontent.com/u/46971470?s=200&v=4")
+    embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
     
-@bot.command(name='roubaix')
-async def roubaix(ctx):
-    await ctx.send('https://france3-regions.francetvinfo.fr/image/iISh83rq9KUA68XxOOhF1j6_p0g/1200x1200/regions/2020/06/08/5ede65ea360b4_6908902064_2b5c2f821f_b.jpg')
+    await ctx.send(embed=embed)
+
+@bot.command(name='boxart')
+async def yagpdb_command(ctx):
+    embed = discord.Embed(title="Obtenir des box art (Jaquettes de jeux) (TWiLightMenu++)", url="https://wiki.ds-homebrew.com/fr-FR/twilightmenu/how-to-get-box-art", description="Comment ajouter des box art sur le TWiLightMenu++", color=discord.Color.blue())
+    embed.set_author(name="DS-Homebrew Wiki")
+    embed.set_thumbnail(url="https://avatars.githubusercontent.com/u/46971470?s=200&v=4")
+    embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
     
-@bot.command(name='shutdown')
-async def shutdown(ctx):
-    await ctx.send('``Statut : Déconnexion en cours...``')
-    print(f'Fermeture de session de {bot.user}. Déconnexion de {ctx.guild.name} avec succès.')
-    await ctx.send('``Statut : Déconnexion : Succès !``')
+    await ctx.send(embed=embed)
+
+@bot.command(name='skins')
+async def skins_command(ctx, attribute: str):
+    if attribute.lower() == 'twl':
+        embed = discord.Embed(title="Thèmes (Skins) (TWiLightMenu++)", url="https://skins.ds-homebrew.com/", description="Une collection de thèmes pour le TWiLightMenu++ de DS-Homebrew/twlmenu-extras sur GitHub", color=discord.Color.blue())
+        embed.set_author(name="DS-Homebrew Wiki")
+        embed.set_thumbnail(url="https://avatars.githubusercontent.com/u/46971470?s=200&v=4")
+        embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        
+        await ctx.send(embed=embed)
+    else:
+        await ctx.send("Commande non-reconnue. Usage: `.skins twl`")
+
+@bot.command(name='format')
+async def format_command(ctx, attribute: str):
+    if attribute.lower() == 'rufus':
+        embed = discord.Embed(title="Formatage en FAT32 (Rufus) :", image="https://media.discordapp.net/attachments/960942679473135686/962666707711840306/unknown.png", description="Téléchargez Rufus : [Téléchargement de Rufus](https://github.com/pbatard/rufus/releases/download/v3.17/rufus-3.17.exe), exécutez le logiciel puis suivez les instructions de l'image. Laissez la taille d'unité d'allocation par défaut.", color=discord.Color.blue())
+        embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        
+        await ctx.send(embed=embed)
+    else:
+        await ctx.send("Commande non-reconnue. Usage: `.format rufus`")
+
+@bot.command(name='ndsforwarders')
+async def ndsforwarders_command(ctx):
+    embed = discord.Embed(title="NDS-Forwarders", url="https://wiki.ds-homebrew.com/fr-FR/ds-index/forwarders", description="Création de raccourcis de jeux DS dans le menu HOME", color=discord.Color.blue())
+    embed.set_author(name="DS-Homebrew Wiki")
+    embed.set_thumbnail(url="https://avatars.githubusercontent.com/u/46971470?s=200&v=4")
+    embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+    
+    await ctx.send(embed=embed)
+
+@bot.command(name='update')
+async def update_command(ctx, attribute: str):
+    if attribute.lower() == 'luma':
+        embed = discord.Embed(title="Mettre à jour Luma3DS", description="Pour mettre à jour Luma3DS, téléchargez la dernière version de ce dernier avec le lien suivant : [Téléchargement de Luma3DS](https://github.com/Nanquitas/Luma3DS/releases/download/latest/boot.firm), extrayez le `.zip` et copiez tout son contenu (les fichiers `boot.firm` et `boot.3dsx`) à la racine de votre Carte SD.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://media.discordapp.net/attachments/959465064556036220/962401951046307890/IMG_20220409_191905.png")
+        embed.set_footer(text="Le Homebrew France", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        
+        await ctx.send(embed=embed)
+    else:
+        await ctx.send("Commande non-reconnue. Usage: `.update luma`")
+
+@bot.command(name='tarifs')
+async def tarifs_command(ctx, attribute: str):
+    if attribute.lower() == 'pucage':
+        embed = discord.Embed(title="Tarifs modification Nintendo Switch (puçage)", url="https://homebrewfrance.github.io/prestations", description="Les tarifs et informations complémentaires sont disponibles sur le site internet, en cas de besoin d'aide, adressez-vous à <@936028537369022474> ou à la société FIXurPHONE au 07.67.76.12.58 (prix d'un appel local)", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://media.discordapp.net/attachments/962030917495447613/1058690684711878656/IMG_20221231_111721.png")
+        embed.set_footer(text="Le Homebrew France | FIXurPHONE", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        
+        await ctx.send(embed=embed)
+    else:
+        await ctx.send("Commande non-reconnue. Usage: `.tarifs pucage`")
+
+@bot.command(name='guide')
+async def guide_command(ctx, attribute: str):
+    if attribute.lower() == '3ds':
+        embed = discord.Embed(title="Guide de Modding 3DS", url="https://3ds.hacks.guide/fr_FR/", description="Un guide complet pour le custom firmware de la 3DS, depuis le firmware original vers boot9strap.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://lh3.googleusercontent.com/proxy/1P6EQL4b2uEuOudqcTOVXIuddSSk552dDipN7D2A05i9hP3yXsM1Oq6-WRevnj67DBmhw4igm32yIghqrlcRshIQdA9wPEwvz5W7qTRjtVgpAqLRwrmcDblABTobbvwzd7IikURe18ck1mKg")
+        embed.set_footer(text="Le Homebrew France | 3DS Hacks Guide", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        await ctx.send(embed=embed)
+    elif attribute.lower() == 'vita':
+        embed = discord.Embed(title="Guide de Modding PSVita", url="https://vita.hacks.guide/", description="Un guide complet pour le custom firmware PS Vita (TV), depuis le firmware original vers Ensō.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://enso.henkaku.xyz/enso.png")
+        embed.set_footer(text="Le Homebrew France | Vita Hacks Guide", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png") 
+        await ctx.send(embed=embed)   
+    elif attribute.lower() == 'psvita':
+        embed = discord.Embed(title="Guide de Modding PSVita", url="https://vita.hacks.guide/", description="Un guide complet pour le custom firmware PS Vita (TV), depuis le firmware original vers Ensō.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://enso.henkaku.xyz/enso.png")
+        embed.set_footer(text="Le Homebrew France | Vita Hacks Guide", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        await ctx.send(embed=embed)
+    elif attribute.lower() == 'wii u':
+        embed = discord.Embed(title="Guide de Modding Wii U", url="https://wiiu.hacks.guide/#/fr_FR/", description="Un guide complet pour le custom firmware de la Wii U, depuis le firmware original vers un CFW.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://lh3.googleusercontent.com/proxy/DEsQosxV9ZMUn1aYjHC93wxMrAhM3Q-EFeOlhHY_r6LZCW16XyWwrcD0j2xTXdx360F0ts91_zU1RZ70aLcqd-VInGimc0SCrr9iJHIyANc7I0ymikR2OgXsnU5VnGiI4hyYqqiSlV4ZiIWSWJoIer0Jotafvnmx0g")
+        embed.set_footer(text="Le Homebrew France | Wii U Hacks Guide", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        await ctx.send(embed=embed)
+    elif attribute.lower() == 'dsi':
+        embed = discord.Embed(title="Guide de Modding DSi", url="https://dsi.cfw.guide/fr_FR/", description="Le guide complet pour modder votre Nintendo DSi.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://media.discordapp.net/attachments/882625509824004199/921361253262323732/1639739970816.png")
+        embed.set_footer(text="Le Homebrew France | DSi CFW Guide", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        await ctx.send(embed=embed)
+    elif attribute.lower() == 'switch':
+        embed = discord.Embed(title="Guide de Modding Nintendo Switch", url="https://homebrewfrance.github.io/docu/switch", description="Un guide complet pour le custom firmware de la Nintendo Switch, depuis le firmware original vers un CFW.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://lh3.googleusercontent.com/proxy/rFesUV6hBrxycXemK2Fs99lNXfFbbztnn0v42yZ51gP8sFK5qvKkxEP2lQFIQIxu0ueBVN_8x2RPxgwCYrS3oGA6_98qtENyP4HVxo4H0h4SaBOKq-l0xmctrXRdcNtThjc6u9EDzNg2WG9aGf38XMpzbWu-IWw")
+        embed.set_footer(text="Le Homebrew France | numbersix & Zoria", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        await ctx.send(embed=embed)
+    elif attribute.lower() == 'wii':
+        embed = discord.Embed(title="Guide de Modding Wii", url="https://wii.guide/fr_FR/", description="Un guide complet pour le custom firmware de la Wii, depuis le firmware original vers un CFW.", color=discord.Color.blue())
+        embed.set_footer(text="Le Homebrew France | Wii Guide", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+        await ctx.send(embed=embed)
+    else:
+        await ctx.send("Commande non-reconnue. Usage: `.guide 3ds | dsi | switch | wii | wii u | psvita`")
+
+@bot.command(name='uninstall')
+async def uninstall_command(ctx, attribute: str):
+    if attribute.lower() == 'luma':
+        embed = discord.Embed(title="Désinstaller Luma 3DS", url="https://3ds.hacks.guide/fr_FR/uninstall-cfw.html", description="Un guide complet pour désinstaller intégralement le CFW Luma de votre 3DS.", color=discord.Color.blue())
+        embed.set_thumbnail(url="https://lh3.googleusercontent.com/proxy/1P6EQL4b2uEuOudqcTOVXIuddSSk552dDipN7D2A05i9hP3yXsM1Oq6-WRevnj67DBmhw4igm32yIghqrlcRshIQdA9wPEwvz5W7qTRjtVgpAqLRwrmcDblABTobbvwzd7IikURe18ck1mKg")
+        embed.set_footer(text="Le Homebrew France | 3DS Hacks Guide", icon_url="https://raw.githubusercontent.com/homebrewfrance/homebrewfrance.github.io/main/IMAGES/favicon.png")
+    else:
+        await ctx.send("Commande non-reconnue. Usage: `.uninstall luma | twl | unlaunch`")
+
+@bot.command()
+@commands.has_role("Your Desired Role")
+async def stop(ctx):
+    await ctx.send("``🔴 ARRÊT...``")
+    await ctx.send("``🔴 DECONNEXION DE Le Homebrew France...``")
     await bot.close()
 
-bot.run('{BOT_TOKEN}')
+print("Bot is now running...")  # Print bot is running in the console
+
+bot.run('token')
