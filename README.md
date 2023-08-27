@@ -1,8 +1,11 @@
 # Homebrew-France-Helper
-A simple bot for the Homebrew France server.
+A multipurpose Discord Bot for "Le Homebrew France" server.
 
 # Features
-Simple embed responses to commands.
+- Nintendo Switch Serial number checker (IMSP)
+- Moderation commands (mute, tempban, ban)
+- Generic commands
+- Homebrew commands (guides, packs, etc.)
 
 # Setting up the bot
 
