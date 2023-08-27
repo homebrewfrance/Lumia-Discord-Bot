@@ -12,8 +12,10 @@ A multipurpose Discord Bot for "Le Homebrew France" server.
 - Go to [Discord Developer Portal](https://discord.com/developers/applications).
 - Create a new application with the name of the bot you want to create.
 - Create your bot.
+- Give the bot "Administrator" permissions.
 - Copy the token.
-- Replace ``{BOT_TOKEN}`` in the code with your bot's token.
+- Replace ``{BOT_TOKEN}`` in the code with your bot's token. 
+- Replace all the roles IDs with the corresponding ones on your server. 
 
 # Running the bot
 
