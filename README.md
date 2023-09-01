@@ -20,6 +20,7 @@ A multipurpose Discord Bot for "Le Homebrew France" server.
 # Running the bot
 
 - Download the [latest version of Python](https://www.python.org/downloads/)
-- Run this command in PowerShell or in your Command Prompt : ``pip install discord``
-- Run this command to open the folder where you put the Python file : ``cd C:\\Users\%USERNAME%\[YOUR_FOLDER]`` by replacing [YOUR_FOLDER] with your folder's name.
-- Type ``python main.py``
+- Unzip the source code's archive.
+- Open "Lumia Bot Launcher.exe".
+- Click on "Modules", it will install the necessary modules to run the bot.
+- Click on "Exécuter".
