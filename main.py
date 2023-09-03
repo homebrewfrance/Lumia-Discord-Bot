@@ -1,27 +1,53 @@
+'''
+//////////////////////////////////////
+////////  LUMIA DISCORD BOT //////////
+//// © 2023 - Le Homebrew France /////
+//////////////////////////////////////
+'''
+# Aidez-nous à améliorer le bot sur le repo GitHub ! 
+# https://github.com/homebrewfrance/Lumia-Discord-Bot
+
 import discord
 from discord.ext import commands
 from discord.ext.commands.help import HelpCommand
-from discord import app_commands
 import os
 import sys
 import asyncio
-import urllib.request
-import zipfile
-from datetime import datetime
-import requests
-import shutil
-from bs4 import BeautifulSoup
-import httpx
-import aiohttp
+import configparser
 
 intents = discord.Intents.all()
-ver = "v0.0.2a"
+config = configparser.ConfigParser()
+
+config['BotConfig'] = {
+    'ver': 'v0.0.2a'
+}
+config['LumaConfig'] = {
+    'luma_ver': '13.0.2'
+}
+config['B9SConfig'] = {
+    'boot9strap_ver': '1.4'
+}
+config['SkaterConfig'] = {
+    'skater_ver': '1.1'
+}
+config['NimdsConfig'] = {
+    'nimds_ver': '1.0'
+}
+with open('config.ini', 'w') as configfile:
+    config.write(configfile)
+
+config.read('config.ini')
+
+ver = config['BotConfig']['ver']
+luma_ver = config['LumaConfig']['luma_ver']
+boot9strap_ver = config['B9SConfig']['boot9strap_ver']
+skater_ver = config['SkaterConfig']['skater_ver']
+nimds_ver = config['NimdsConfig']['nimds_ver']
 
 class MyHelp(HelpCommand):
     async def send_bot_help(self, mapping):
         bot = self.context.bot
         ctx = self.context
-        
     
         embed_pages = [
              discord.Embed(title="Aide sur les commandes", description="Tapez ``.info [commande]`` pour obtenir des informations sur une commande ou ``.info [catégorie] pour une catégorie``", color=discord.Color.green()).add_field(name="**Générales :**", value="``.help``\n``.ping``\n``.info``").set_footer(text=f"Lumia {ver} | Page 1/3", icon_url="https://homebrewfrance.github.io/IMAGES/lumia_bot.png").set_thumbnail(url="https://homebrewfrance.github.io/IMAGES/lumia_bot.png"), 
@@ -180,4 +206,4 @@ async def stop(ctx):
 
 print("Bot is now running...")
 sys.stdout.flush()
-bot.run('')
+bot.run('{BOT_TOKEN}')
