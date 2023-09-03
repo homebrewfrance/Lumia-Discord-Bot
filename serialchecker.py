@@ -1,20 +1,25 @@
+'''
+//////////////////////////////////////
+////////  LUMIA DISCORD BOT //////////
+//// © 2023 - Le Homebrew France /////
+//////////////////////////////////////
+'''
+# Aidez-nous à améliorer le bot sur le repo GitHub ! 
+# https://github.com/homebrewfrance/Lumia-Discord-Bot
+
 import discord
 from discord.ext import commands
-from discord.ext.commands.help import HelpCommand
-from discord import app_commands
 import os
-import sys
-import asyncio
-import urllib.request
-import zipfile
-from datetime import datetime
-import requests
-import shutil
-from bs4 import BeautifulSoup
-import httpx
-import aiohttp
+import configparser
 
-ver = "v0.0.2a"
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+ver = config['BotConfig']['ver']
+luma_ver = config['LumaConfig']['luma_ver']
+boot9strap_ver = config['B9SConfig']['boot9strap_ver']
+skater_ver = config['SkaterConfig']['skater_ver']
+nimds_ver = config['NimdsConfig']['nimds_ver']
 
 class SerialChecker(commands.Cog):
     def __init__(self, bot):
