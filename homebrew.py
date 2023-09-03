@@ -1,10 +1,27 @@
+'''
+//////////////////////////////////////
+////////  LUMIA DISCORD BOT //////////
+//// © 2023 - Le Homebrew France /////
+//////////////////////////////////////
+'''
+# Aidez-nous à améliorer le bot sur le repo GitHub ! 
+# https://github.com/homebrewfrance/Lumia-Discord-Bot
+
 import discord
 from discord.ext import commands
 import os
 import sys
-import httpx
+import configparser
 
-ver = "v0.0.2a"
+config = configparser.ConfigParser()
+
+config.read('config.ini')
+
+ver = config['BotConfig']['ver']
+luma_ver = config['LumaConfig']['luma_ver']
+boot9strap_ver = config['B9SConfig']['boot9strap_ver']
+skater_ver = config['SkaterConfig']['skater_ver']
+nimds_ver = config['NimdsConfig']['nimds_ver']
 
 class Homebrew(commands.Cog):
     def __init__(self, bot):
@@ -49,7 +66,7 @@ class Homebrew(commands.Cog):
     @commands.command(name='non-brick')
     async def non_brick_command(self, ctx):
         """Ouh pinaise"""
-        embed = discord.Embed(title="__**La LED s'allume puis s'éteint immédiatement**__", description="***Comment faire ? :***\nSi la LED bleue de votre 3DS s'allume puis s'éteint instantanément, non votre console n'est pas brickée. Il s'agit simplement d'un fichier manquant sur votre Carte SD : le `boot.firm`, il est disponible en téléchargement ici, placez le à la racine de votre Carte SD.\n- [Télécharger le boot.firm](https://github.com/LumaTeam/Luma3DS/releases/latest/download/Luma3DSv13.0.2.zip)", color=discord.Color.dark_orange())
+        embed = discord.Embed(title="__**La LED s'allume puis s'éteint immédiatement**__", description=f"***Comment faire ? :***\nSi la LED bleue de votre 3DS s'allume puis s'éteint instantanément, non votre console n'est pas brickée. Il s'agit simplement d'un fichier manquant sur votre Carte SD : le `boot.firm`, il est disponible en téléchargement ici, placez le à la racine de votre Carte SD.\n- [Télécharger le boot.firm](https://github.com/LumaTeam/Luma3DS/releases/latest/download/Luma3DSv{luma_ver}.zip)", color=discord.Color.dark_orange())
         embed.set_thumbnail(url="https://media.discordapp.net/attachments/959465064556036220/962404229983662100/IMG_20220409_193009.png")
         embed.set_footer(text=f"Lumia {ver}", icon_url="https://github.com/homebrewfrance/Lumia-Discord-Bot/blob/main/lumia_bot.png?raw=true")
         embed.set_author(name="🔎 Résolution des problèmes")
@@ -123,7 +140,7 @@ class Homebrew(commands.Cog):
     @commands.command(name='update')
     async def update_command(self, ctx, attribute: str):
         if attribute.lower() == 'luma':
-            embed = discord.Embed(title="__**Mise à jour de Luma3DS**__", description="***Comment faire ? - Méthode 1 :***\nPour mettre à jour Luma3DS, téléchargez la dernière version de Luma, extrayez le `.zip` et copiez tout son contenu (les fichiers `boot.firm` et `boot.3dsx`) à la racine de votre Carte SD.\n\n***Méthode 2 :***\nRendez vous dans l'application Universal-Updater (une icône de flèche bleue), cliquez sur la zone de recherche, cherchez 'luma', téléchargez la première entrée. Si vous n'avez pas Universal-Updater sur vôtre console, il suffit de télécharger le `.cia` et de l'installer via FBI.\n\n- [Télécharger Luma3DS](https://github.com/LumaTeam/Luma3DS/releases/latest/download/Luma3DSv13.0.2.zip)\n- [Télécharger Universal-Updater](https://github.com/Universal-Team/Universal-Updater/releases/latest/download/Universal-Updater.cia)", color=discord.Color.yellow())
+            embed = discord.Embed(title="__**Mise à jour de Luma3DS**__", description=f"***Comment faire ? - Méthode 1 :***\nPour mettre à jour Luma3DS, téléchargez la dernière version de Luma, extrayez le `.zip` et copiez tout son contenu (les fichiers `boot.firm` et `boot.3dsx`) à la racine de votre Carte SD.\n\n***Méthode 2 :***\nRendez vous dans l'application Universal-Updater (une icône de flèche bleue), cliquez sur la zone de recherche, cherchez 'luma', téléchargez la première entrée. Si vous n'avez pas Universal-Updater sur vôtre console, il suffit de télécharger le `.cia` et de l'installer via FBI.\n\n- [Télécharger Luma3DS](https://github.com/LumaTeam/Luma3DS/releases/latest/download/Luma3DSv{luma_ver}.zip)\n- [Télécharger Universal-Updater](https://github.com/Universal-Team/Universal-Updater/releases/latest/download/Universal-Updater.cia)", color=discord.Color.yellow())
             embed.set_thumbnail(url="https://media.discordapp.net/attachments/959465064556036220/962401951046307890/IMG_20220409_191905.png")
             embed.set_footer(text=f"Lumia {ver}", icon_url="https://github.com/homebrewfrance/Lumia-Discord-Bot/blob/main/lumia_bot.png?raw=true")
             embed.set_author(name="💡 Aide")
