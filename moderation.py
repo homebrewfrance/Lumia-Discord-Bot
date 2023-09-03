@@ -1,8 +1,15 @@
+'''
+//////////////////////////////////////
+////////  LUMIA DISCORD BOT //////////
+//// © 2023 - Le Homebrew France /////
+//////////////////////////////////////
+'''
+# Aidez-nous à améliorer le bot sur le repo GitHub ! 
+# https://github.com/homebrewfrance/Lumia-Discord-Bot
+
 import discord
 from discord.ext import commands
 from datetime import timedelta
-from typing import Union
-from github import Github
 import os
 import sys
 import asyncio
@@ -10,8 +17,7 @@ import re
 
 authorized_roles_ban = ["883639603817496596", "885187371354705940"]
 authorized_roles_tempban = ["883639603817496596", "885187371354705940"]
-authorized_roles_banword = ["883639603817496596", "885187371354705940"]
-authorized_roles = ["883639603817496596", "885187371354705940"]
+authorized_roles_mute = ["883639603817496596", "885187371354705940", "883989706478608424"]
 
 muted_users = {}
 
@@ -25,7 +31,11 @@ class Moderation(commands.Cog):
         if member is None:
             await ctx.send("Aucun membre n'est spécifié.")
             return
-        
+
+        if not any(role.name in authorized_roles_mute for role in ctx.author.roles):
+            await ctx.send("Vous n'avez pas la permission d'utiliser cette commande.")
+            return
+
         if reason is None:
             await ctx.send("Veuillez indiquer une raison.")
             return
@@ -69,6 +79,10 @@ class Moderation(commands.Cog):
             await ctx.send("Aucun membre n'est spécifié.")
             return
         
+        if not any(role.name in authorized_roles_mute for role in ctx.author.roles):
+            await ctx.send("Vous n'avez pas la permission d'utiliser cette commande.")
+            return
+
         muted_role = discord.utils.get(ctx.guild.roles, id=self.muted_role_id)
         if not muted_role:
             await ctx.send("Le rôle Muted n'a pas été trouvé.")
@@ -84,7 +98,6 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def ban(self, ctx, member: discord.Member, *, reason: str = None):
-        """Bannit un membre du serveur."""
         if reason is None:
             await ctx.send("Veuillez fournir une raison pour le bannissement.")
             return
@@ -103,7 +116,6 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def tempban(self, ctx, member: discord.Member, duration: int, unit: str, *, reason: str = None):
-        """Bannit temporairement un membre du serveur."""
         if reason is None:
             await ctx.send("Merci de fournir une raison pour le bannissement temporaire.")
             return
@@ -118,7 +130,6 @@ class Moderation(commands.Cog):
         elif unit == "m":
             duration_seconds = duration * 2592000 
 
-        # Vérification des rôles de l'utilisateur
         authorized = any(role.name in authorized_roles_tempban for role in ctx.author.roles)
         if not authorized:
             await ctx.send("Vous n'avez pas la permission d'utiliser cette commande.")
