@@ -3,6 +3,7 @@ A multipurpose Discord Bot for "Le Homebrew France" server.
 
 # Features
 - Nintendo Switch Serial number checker (IMSP)
+- PS3 Model Number checker (tells if a PS3 can run CFW or not)
 - Moderation commands (mute, tempban, ban)
 - Generic commands
 - Homebrew commands (guides, packs, etc.)
