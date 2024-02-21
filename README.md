@@ -1,4 +1,4 @@
-# Lumia
+# Le Homebrew France - Lumia
 A multipurpose Discord Bot for "Le Homebrew France" server.
 
 # Features
