@@ -27,9 +27,7 @@ A multipurpose Discord Bot for "Le Homebrew France" server.
 
 - Download the [latest version of Python](https://www.python.org/downloads/)
 - Unzip the source code's archive.
-- Open "Lumia Bot Launcher.exe".
-- Click on "Modules", it will install the necessary modules to run the bot.
-- Click on "Exécuter".
+- Execute the bot with ``python main.py``
 
 ### On Linux 
 
