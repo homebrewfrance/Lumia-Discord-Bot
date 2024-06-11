@@ -1,6 +1,6 @@
 [![Discord](https://img.shields.io/discord/883623179979984896?logo=discord&label=Le%20Homebrew%20France)](https://discord.gg/le-homebrew-france-883623179979984896) ![GitHub Repo stars](https://img.shields.io/github/stars/homebrewfrance/Lumia-Discord-Bot)
 
-![Lumia-Bot](https://homebrewfrance.github.io/IMAGES/lumia-bot.png)
+![Lumia-Bot](https://cdn.homebrew-france.site/github/lumia-bot.png)
 
 # Le Homebrew France - Lumia-Discord-Bot
 A multipurpose Discord Bot for "Le Homebrew France" server.
