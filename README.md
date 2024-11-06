@@ -2,8 +2,8 @@
 
 ![Lumia-Bot](https://cdn.homebrew-france.site/github/lumia-bot.png)
 
-# Le Homebrew France - Lumia-Discord-Bot
-A multipurpose Discord Bot for "Le Homebrew France" server.
+# Homebrew France - Lumia-Discord-Bot
+A multipurpose Discord Bot for "Homebrew France" server.
 
 # Features
 - Nintendo Switch Serial number checker (IMSP)
